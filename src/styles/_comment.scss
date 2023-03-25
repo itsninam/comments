@@ -1,0 +1,31 @@
+.comment-container {
+  border: 1px solid black;
+  border-radius: 16px;
+  margin: 0 auto 32px auto;
+  width: 600px;
+  padding: 32px;
+
+  .comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    button {
+      margin-left: auto;
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  height: 40px;
+  width: 40px;
+}
