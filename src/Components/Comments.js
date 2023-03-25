@@ -1,9 +1,13 @@
 import iconPlus from "../images/icon-plus.svg";
 import iconMinus from "../images/icon-minus.svg";
 import Reply from "./Replys";
+import Form from "./Form";
+import { useState } from "react";
 
 const Comments = ({ comment, currentUser }) => {
   const { content, createdAt, replies, score, user } = comment;
+
+  const [showCommentForm, setShowCommentForm] = useState(false);
 
   return (
     <>
@@ -22,7 +26,10 @@ const Comments = ({ comment, currentUser }) => {
               />
               <p className="username">{user.username}</p>
               <p className="created-at">{createdAt}</p>
-              <button className="reply-btn">
+              <button
+                className="reply-btn"
+                onClick={() => setShowCommentForm(!showCommentForm)}
+              >
                 <span></span>
                 Reply
               </button>
@@ -33,6 +40,7 @@ const Comments = ({ comment, currentUser }) => {
           </div>
         </div>
       </div>
+      {showCommentForm && <Form currentUser={currentUser} />}
 
       {replies.map((reply) => {
         return <Reply reply={reply} currentUser={currentUser} />;
