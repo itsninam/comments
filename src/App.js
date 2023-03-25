@@ -5,15 +5,23 @@ import Comments from "./Components/Comments";
 
 const App = () => {
   const [comments, setComments] = useState([]);
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     setComments(data.comments);
+    setCurrentUser(data.currentUser);
   }, []);
 
   return (
-    <section>
+    <section className="wrapper">
       {comments.map((comment) => {
-        return <Comments key={comment.id} comment={comment} />;
+        return (
+          <Comments
+            key={comment.id}
+            comment={comment}
+            currentUser={currentUser}
+          />
+        );
       })}
     </section>
   );
