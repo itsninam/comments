@@ -10,9 +10,8 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
   const [commentVote, setCommentVote] = useState(comment.score);
   const [showCommentForm, setShowCommentForm] = useState(false);
 
-  const addComment = (event, clickedComment, userInput) => {
+  const addComment = (event, clickedComment, userInput, index) => {
     event.preventDefault();
-    console.log(clickedComment);
 
     //reply object
     const reply = {
@@ -34,15 +33,16 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       alert("Please enter a comment");
     } else {
       const updatedComment = comments.map((comment) => {
-        console.log(comment, comment.replyingTo, comment.user.username);
         //if clicked object matches, return current comments and replies, and add new reply
         //also check if selected comment is a reply
         if (
           comment.id === clickedComment.id ||
           clickedComment.replyingTo === comment.user.username
         ) {
-          return { ...comment, replies: [...comment.replies, reply] };
+          //insert new reply after current comment
+          replies.splice(index + 1, 0, reply);
         }
+
         return comment;
       });
       //update comment obj to include new reply
@@ -50,6 +50,19 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       //hide form on submit
       setShowCommentForm(false);
     }
+  };
+
+  const deleteComment = (clickedComment, event) => {
+    console.log(clickedComment);
+    event.preventDefault();
+    const updatedComment = comments.map((comment) => {
+      const deletedComment = comment.replies.filter(
+        (reply) => reply.id !== clickedComment.id
+      );
+
+      return { ...comment, replies: deletedComment };
+    });
+    setComments(updatedComment);
   };
 
   return (
@@ -101,13 +114,15 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
         />
       )}
 
-      {replies.map((reply) => {
+      {replies.map((reply, index) => {
         return (
           <Reply
             key={reply.id}
             reply={reply}
             currentUser={currentUser}
             addComment={addComment}
+            index={index}
+            deleteComment={deleteComment}
           />
         );
       })}

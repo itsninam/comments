@@ -7,6 +7,7 @@ const Form = ({
   addComment,
   selectedComment,
   reply,
+  index,
 }) => {
   const [userInput, setUserInput] = useState();
 
@@ -30,11 +31,9 @@ const Form = ({
       ></textarea>
       <button
         onClick={(event) => {
-          addComment(event, selectedComment, userInput);
+          addComment(event, selectedComment, userInput, index);
           //hide form after commenting on a reply
-          {
-            showReplyForm && setShowReplyForm(false);
-          }
+          showReplyForm && setShowReplyForm(false);
         }}
       >
         submit

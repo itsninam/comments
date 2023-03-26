@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 
-const Reply = ({ reply, currentUser, addComment }) => {
+const Reply = ({ reply, currentUser, addComment, index, deleteComment }) => {
   const { content, createdAt, score, replyingTo, user } = reply;
 
   const [replyVote, setReplyVote] = useState(score);
@@ -41,7 +41,10 @@ const Reply = ({ reply, currentUser, addComment }) => {
                     <span></span>
                     Edit
                   </button>
-                  <button className="delete-btn">
+                  <button
+                    className="delete-btn"
+                    onClick={(event) => deleteComment(reply, event)}
+                  >
                     <span></span>
                     Delete
                   </button>
@@ -73,6 +76,7 @@ const Reply = ({ reply, currentUser, addComment }) => {
           addComment={addComment}
           selectedComment={reply}
           reply={reply}
+          index={index}
         />
       )}
     </>
