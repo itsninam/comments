@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 
-const Reply = ({ reply, currentUser }) => {
+const Reply = ({ comment, reply, currentUser, addComment }) => {
   const { content, createdAt, score, replyingTo, user } = reply;
   const [showReplyForm, setShowReplyForm] = useState(false);
 
@@ -54,7 +54,14 @@ const Reply = ({ reply, currentUser }) => {
         </div>
       </div>
       {showReplyForm && (
-        <Form currentUser={currentUser} showReplyForm={showReplyForm} />
+        <Form
+          currentUser={currentUser}
+          showReplyForm={showReplyForm}
+          setShowReplyForm={setShowReplyForm}
+          addComment={addComment}
+          selectedComment={comment}
+          reply={reply}
+        />
       )}
     </>
   );

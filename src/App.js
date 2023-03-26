@@ -19,7 +19,9 @@ const App = () => {
           <Comments
             key={comment.id}
             comment={comment}
+            comments={comments}
             currentUser={currentUser}
+            setComments={setComments}
           />
         );
       })}
