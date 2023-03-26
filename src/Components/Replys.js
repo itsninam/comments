@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Form from "./Form";
 
-const Reply = ({ comment, reply, currentUser, addComment }) => {
+const Reply = ({ reply, currentUser, addComment }) => {
   const { content, createdAt, score, replyingTo, user } = reply;
+
+  const [replyVote, setReplyVote] = useState(score);
   const [showReplyForm, setShowReplyForm] = useState(false);
 
   return (
@@ -10,9 +12,19 @@ const Reply = ({ comment, reply, currentUser, addComment }) => {
       <div className="reply-container">
         <div className="reply">
           <div className="vote-container">
-            <button className="upvote-btn">+</button>
-            <p className="score">{score}</p>
-            <button className="downvote-btn">-</button>
+            <button
+              className="upvote-btn"
+              onClick={() => setReplyVote(score + 1)}
+            >
+              +
+            </button>
+            <p className="score">{replyVote}</p>
+            <button
+              className="downvote-btn"
+              onClick={() => setReplyVote(score - 1)}
+            >
+              -
+            </button>
           </div>
           <div className="content-container">
             <div className="user-info">
@@ -59,7 +71,7 @@ const Reply = ({ comment, reply, currentUser, addComment }) => {
           showReplyForm={showReplyForm}
           setShowReplyForm={setShowReplyForm}
           addComment={addComment}
-          selectedComment={comment}
+          selectedComment={reply}
           reply={reply}
         />
       )}

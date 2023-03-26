@@ -2,22 +2,24 @@ import iconPlus from "../images/icon-plus.svg";
 import iconMinus from "../images/icon-minus.svg";
 import Reply from "./Replys";
 import Form from "./Form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Comments = ({ comment, comments, currentUser, setComments }) => {
   const { content, createdAt, replies, score, user } = comment;
 
+  const [commentVote, setCommentVote] = useState(comment.score);
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   const addComment = (event, clickedComment, userInput) => {
     event.preventDefault();
+    console.log(clickedComment);
 
     //reply object
     const reply = {
       id: parseInt(Date.now() * Math.random()),
       content: userInput,
       createdAt: new Date().toLocaleString(),
-      score: 2,
+      score: 0,
       replyingTo: clickedComment.user.username,
       user: {
         image: {
@@ -28,17 +30,26 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       },
     };
 
-    const updatedComment = comments.map((comment) => {
-      //if clicked object matches, return current comments and replies, and add new reply
-      if (comment.id === clickedComment.id) {
-        return { ...comment, replies: [...comment.replies, reply] };
-      }
-      return comment;
-    });
-    //update comment obj to include new reply
-    setComments(updatedComment);
-    //hide form on submit
-    setShowCommentForm(false);
+    if (!userInput) {
+      alert("Please enter a comment");
+    } else {
+      const updatedComment = comments.map((comment) => {
+        console.log(comment, comment.replyingTo, comment.user.username);
+        //if clicked object matches, return current comments and replies, and add new reply
+        //also check if selected comment is a reply
+        if (
+          comment.id === clickedComment.id ||
+          clickedComment.replyingTo === comment.user.username
+        ) {
+          return { ...comment, replies: [...comment.replies, reply] };
+        }
+        return comment;
+      });
+      //update comment obj to include new reply
+      setComments(updatedComment);
+      //hide form on submit
+      setShowCommentForm(false);
+    }
   };
 
   return (
@@ -46,9 +57,19 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       <div className="comment-container">
         <div className="comment">
           <div className="vote-container">
-            <button className="upvote-btn">+</button>
-            <p className="score">{score}</p>
-            <button className="downvote-btn">-</button>
+            <button
+              className="upvote-btn"
+              onClick={() => setCommentVote(score + 1)}
+            >
+              +
+            </button>
+            <p className="score">{commentVote}</p>
+            <button
+              className="downvote-btn"
+              onClick={() => setCommentVote(score - 1)}
+            >
+              -
+            </button>
           </div>
           <div className="content-container">
             <div className="user-info">
@@ -84,7 +105,6 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
         return (
           <Reply
             key={reply.id}
-            comment={comment}
             reply={reply}
             currentUser={currentUser}
             addComment={addComment}
