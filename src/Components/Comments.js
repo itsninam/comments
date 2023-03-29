@@ -1,5 +1,5 @@
-import iconPlus from "../images/icon-plus.svg";
-import iconMinus from "../images/icon-minus.svg";
+import iconPlus from "./images/icon-plus.svg";
+import iconMinus from "./images/icon-minus.svg";
 import Reply from "./Replys";
 import Form from "./Form";
 import { useState } from "react";
@@ -85,10 +85,7 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
           </div>
           <div className="content-container">
             <div className="user-info">
-              <img
-                src={require("../images/avatars/image-amyrobson.png")}
-                alt={user.username}
-              />
+              <img src={require(`${user.image.png}`)} alt={user.username} />
               <p className="username">{user.username}</p>
               <p className="created-at">{createdAt}</p>
               <button

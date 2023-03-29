@@ -18,7 +18,7 @@ const Form = ({
   return (
     <form action="" className={showReplyForm ? "reply-form" : "comment-form"}>
       <img
-        src={require("../images/avatars/image-juliusomo.png")}
+        src={require(`${currentUser.image.png}`)}
         alt={currentUser.username}
       />
       <textarea

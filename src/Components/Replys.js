@@ -55,10 +55,7 @@ const Reply = ({
           </div>
           <div className="content-container">
             <div className="user-info">
-              <img
-                src={require("../images/avatars/image-amyrobson.png")}
-                alt={user.username}
-              />
+              <img src={require(`${user.image.png}`)} alt={user.username} />
               <p className="username">{user.username}</p>
               <p className="created-at">{createdAt}</p>
               {/* if reply is by current user, display edit/delete buttons */}
