@@ -53,7 +53,6 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
   };
 
   const deleteComment = (clickedComment, event) => {
-    console.log(clickedComment);
     event.preventDefault();
     const updatedComment = comments.map((comment) => {
       const deletedComment = comment.replies.filter(
@@ -123,6 +122,9 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
             addComment={addComment}
             index={index}
             deleteComment={deleteComment}
+            comment={comment}
+            comments={comments}
+            setComments={setComments}
           />
         );
       })}
