@@ -9,7 +9,11 @@ const Form = ({
   reply,
   index,
 }) => {
-  const [userInput, setUserInput] = useState();
+  const [userInput, setUserInput] = useState(
+    showReplyForm
+      ? `@${reply.user.username}, `
+      : `@${selectedComment.user.username}, `
+  );
 
   return (
     <form action="" className={showReplyForm ? "reply-form" : "comment-form"}>
@@ -22,11 +26,6 @@ const Form = ({
         id="form"
         value={userInput}
         onChange={(event) => setUserInput(event.target.value)}
-        placeholder={
-          showReplyForm
-            ? `@${reply.user.username}, `
-            : `@${selectedComment.user.username} `
-        }
         autoFocus
       ></textarea>
       <button

@@ -11,11 +11,15 @@ form {
     width: 100%;
     font-size: 16px;
     font-family: 'Rubik', sans-serif;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid grey;
   }
 
 }
 
-.comment-form {
+.comment-form,
+.reply-form {
   border: 1px solid black;
 
 }
@@ -35,9 +39,7 @@ form {
     display: block;
     height: 80px;
     width: 93%;
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid grey;
+
   }
 
   button {

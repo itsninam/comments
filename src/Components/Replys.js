@@ -24,12 +24,11 @@ const Reply = ({
     const updatedComment = comments.map((comment) => {
       if (comment.id === clickedComment.id) {
         comment.replies.filter((reply) => reply.id === clickedReply.id);
+        //update reply content with edited content
         reply.content = commentContent;
       }
-      return {
-        ...comment,
-        replies: [...comment.replies],
-      };
+      //return previous comments
+      return { ...comment };
     });
 
     setComments(updatedComment);
@@ -106,7 +105,7 @@ const Reply = ({
             ) : (
               <div className="comment-body">
                 <p>
-                  <span>@{replyingTo}, </span>
+                  {/* <span>@{replyingTo}, </span> */}
                   {content}
                 </p>
               </div>
