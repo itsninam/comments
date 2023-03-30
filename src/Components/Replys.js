@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "./Form";
 
 const Reply = ({
@@ -10,6 +10,7 @@ const Reply = ({
   comment,
   comments,
   setComments,
+  autoFocus,
 }) => {
   const { content, createdAt, score, replyingTo, user } = reply;
 
@@ -21,19 +22,32 @@ const Reply = ({
   const editComment = (clickedComment, clickedReply, event) => {
     event.preventDefault();
 
-    const updatedComment = comments.map((comment) => {
-      if (comment.id === clickedComment.id) {
-        comment.replies.filter((reply) => reply.id === clickedReply.id);
-        //update reply content with edited content
-        reply.content = commentContent;
-      }
-      //return previous comments
-      return { ...comment };
-    });
+    // default input format is `@username, `
+    // check if current input only contains default format and alert user to enter a comment
+    if (commentContent === `@${clickedComment.user.username},`) {
+      alert("please edit or remove your comment");
+    } else {
+      const updatedComment = comments.map((comment) => {
+        if (comment.id === clickedComment.id) {
+          comment.replies.filter((reply) => reply.id === clickedReply.id);
+          //update reply content with edited content
+          reply.content = commentContent;
+        }
+        //return previous comments
+        return { ...comment };
+      });
 
-    setComments(updatedComment);
-    setShowEditComment(false);
+      setComments(updatedComment);
+      setShowEditComment(false);
+    }
   };
+
+  useEffect(() => {
+    if (showEditComment || showReplyForm) {
+      autoFocus("textarea");
+    }
+  }, [autoFocus, showEditComment, showReplyForm]);
+
   return (
     <>
       <div className="reply-container">
@@ -119,6 +133,7 @@ const Reply = ({
           selectedComment={reply}
           reply={reply}
           index={index}
+          autoFocus={autoFocus}
         />
       )}
     </>

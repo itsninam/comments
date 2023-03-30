@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Form = ({
   currentUser,
@@ -8,12 +8,17 @@ const Form = ({
   selectedComment,
   reply,
   index,
+  autoFocus,
 }) => {
   const [userInput, setUserInput] = useState(
     showReplyForm
-      ? `@${reply.user.username}, `
-      : `@${selectedComment.user.username}, `
+      ? `@${reply.user.username},`
+      : `@${selectedComment.user.username},`
   );
+
+  useEffect(() => {
+    autoFocus("textarea");
+  }, [autoFocus]);
 
   return (
     <form action="" className={showReplyForm ? "reply-form" : "comment-form"}>
@@ -26,7 +31,6 @@ const Form = ({
         id="form"
         value={userInput}
         onChange={(event) => setUserInput(event.target.value)}
-        autoFocus
       ></textarea>
       <button
         onClick={(event) => {

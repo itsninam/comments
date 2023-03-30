@@ -29,7 +29,10 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       },
     };
 
-    if (!userInput) {
+    //default input format is `@username, `
+    //check if current input only contains default format and alert user to enter a comment
+    if (userInput === `@${clickedComment.user.username},`) {
+      userInput = "";
       alert("Please enter a comment");
     } else {
       const updatedComment = comments.map((comment) => {
@@ -62,6 +65,14 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
       return { ...comment, replies: deletedComment };
     });
     setComments(updatedComment);
+  };
+
+  const autoFocus = (element) => {
+    const textArea = document.querySelector(`${element}`);
+    const textAreaLength = textArea.textContent.length;
+    textArea.focus();
+    //focus on textarea after username
+    textArea.setSelectionRange(textAreaLength, textAreaLength);
   };
 
   return (
@@ -97,7 +108,7 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
               </button>
             </div>
             <div className="comment-body">
-              <p>{content}</p>
+              <p> {content}</p>
             </div>
           </div>
         </div>
@@ -107,6 +118,7 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
           currentUser={currentUser}
           addComment={addComment}
           selectedComment={comment}
+          autoFocus={autoFocus}
         />
       )}
 
@@ -122,6 +134,7 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
             comment={comment}
             comments={comments}
             setComments={setComments}
+            autoFocus={autoFocus}
           />
         );
       })}
