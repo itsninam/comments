@@ -28,11 +28,13 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
         username: currentUser.username,
       },
     };
-
     //default input format is `@username, `
     //check if current input only contains default format and alert user to enter a comment
-    if (userInput === `@${clickedComment.user.username},`) {
-      userInput = "";
+    if (
+      userInput &&
+      //remove whitespace
+      userInput.replace(/\s/g, "") === `@${clickedComment.user.username},`
+    ) {
       alert("Please enter a comment");
     } else {
       const updatedComment = comments.map((comment) => {

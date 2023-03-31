@@ -12,7 +12,7 @@ const Reply = ({
   setComments,
   autoFocus,
 }) => {
-  const { content, createdAt, score, replyingTo, user } = reply;
+  const { content, createdAt, score, user } = reply;
 
   const [replyVote, setReplyVote] = useState(score);
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -24,7 +24,17 @@ const Reply = ({
 
     // default input format is `@username, `
     // check if current input only contains default format and alert user to enter a comment
-    if (commentContent === `@${clickedComment.user.username},`) {
+    console.log(commentContent);
+    if (
+      (commentContent &&
+        //remove whitespace
+        commentContent.replace(/\s/g, "") ===
+          `@${clickedComment.user.username},`) ||
+      //if user removes entire text to own comment
+      commentContent === "" ||
+      //remove whitespace
+      commentContent.replace(/\s/g, "") === `@${clickedReply.replyingTo},`
+    ) {
       alert("please edit or remove your comment");
     } else {
       const updatedComment = comments.map((comment) => {
@@ -39,6 +49,18 @@ const Reply = ({
 
       setComments(updatedComment);
       setShowEditComment(false);
+    }
+  };
+
+  const handleBackspace = (event, clickedComment, clickedReply) => {
+    const textarea = document.querySelector("textarea");
+
+    //if textarea contains the username, prevent backspace so user does not delete the username for main comment and a reply
+    if (
+      textarea.textContent === `@${clickedComment.user.username},` ||
+      textarea.textContent === `@${clickedReply.replyingTo},`
+    ) {
+      if (event.keyCode == 8) event.preventDefault();
     }
   };
 
@@ -108,6 +130,7 @@ const Reply = ({
                   id=""
                   value={commentContent}
                   onChange={(event) => setCommentContent(event.target.value)}
+                  onKeyDown={(event) => handleBackspace(event, comment, reply)}
                 ></textarea>
                 <button onClick={(event) => editComment(comment, reply, event)}>
                   update

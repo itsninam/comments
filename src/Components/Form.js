@@ -20,6 +20,20 @@ const Form = ({
     autoFocus("textarea");
   }, [autoFocus]);
 
+  const handleBackspace = (event) => {
+    const textareas = document.querySelectorAll("textarea");
+    textareas.forEach((textArea) => {
+      //if textarea contains the username, prevent backspace so user does not delete the username
+      if (
+        (showReplyForm &&
+          textArea.textContent === `@${reply.user.username},`) ||
+        textArea.textContent === `@${selectedComment.user.username},`
+      ) {
+        if (event.keyCode == 8) event.preventDefault();
+      }
+    });
+  };
+
   return (
     <form action="" className={showReplyForm ? "reply-form" : "comment-form"}>
       <img
@@ -31,6 +45,7 @@ const Form = ({
         id="form"
         value={userInput}
         onChange={(event) => setUserInput(event.target.value)}
+        onKeyDown={handleBackspace}
       ></textarea>
       <button
         onClick={(event) => {
