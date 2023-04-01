@@ -24,7 +24,7 @@ const Reply = ({
 
     // default input format is `@username, `
     // check if current input only contains default format and alert user to enter a comment
-    console.log(commentContent);
+
     if (
       (commentContent &&
         //remove whitespace
@@ -93,9 +93,10 @@ const Reply = ({
             <div className="user-info">
               <img src={require(`${user.image.png}`)} alt={user.username} />
               <p className="username">{user.username}</p>
+              {currentUser && <p>you</p>}
               <p className="created-at">{createdAt}</p>
               {/* if reply is by current user, display edit/delete buttons */}
-              {user.username === currentUser.username ? (
+              {currentUser ? (
                 <div className="button-container">
                   <button
                     className="edit-btn"
