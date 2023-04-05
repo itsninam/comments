@@ -1,62 +1,75 @@
-  .wrapper {
-    width: 700px;
+.comment-container {
+  width: 630px;
+  margin: 32px auto 32px auto;
+}
+
+.reply-container {
+  width: 550px;
+  margin-left: auto;
+  margin-bottom: 32px;
+}
+
+
+.comment-container,
+.reply-container {
+  border-radius: 16px;
+  padding: 16px 32px;
+  background-color: $white;
+
+  .comment,
+  .reply {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .content-container {
+    width: 100%;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    button,
+    .button-container {
+      margin-left: auto;
+    }
+
+    .button-container {
+      .edit-btn {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+
+.vote-container {
+  // height: 93px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  background-color: $lightGray;
+
+  .score {
+    color: $moderateBlue;
+    font-weight: $bold;
+    width: 20px;
+    text-align: center;
     margin: 0 auto;
   }
 
-
-  .reply-container {
-    border: 1px solid blue;
-    width: 550px;
-    margin-left: auto;
-    margin-bottom: 32px;
-  }
-
-  .comment-container {
-    border: 1px solid black;
-    width: 630px;
-    margin: 0 auto 32px auto;
+  .upvote-btn,
+  .downvote-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 2.3rem;
 
   }
-
-
-  .comment-container,
-  .reply-container {
-    border-radius: 16px;
-    padding: 16px 32px;
-
-    .comment,
-    .reply {
-      display: flex;
-      align-items: flex-start;
-      gap: 24px;
-    }
-
-    .content-container {
-      width: 100%;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-
-      button,
-      .button-container {
-        margin-left: auto;
-      }
-
-      .button-container {
-        .edit-btn {
-          margin-right: 16px;
-        }
-      }
-    }
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    height: 40px;
-    width: 40px;
-  }
+}
