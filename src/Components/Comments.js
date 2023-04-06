@@ -1,5 +1,4 @@
-import iconPlus from "./images/icon-plus.svg";
-import iconMinus from "./images/icon-minus.svg";
+import iconReply from "./images/icon-reply.svg";
 import Reply from "./Replys";
 import Form from "./Form";
 import { useState } from "react";
@@ -105,7 +104,12 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
                 className="reply-btn"
                 onClick={() => setShowCommentForm(!showCommentForm)}
               >
-                <span></span>
+                <img
+                  src={iconReply}
+                  alt="reply icon"
+                  aria-hidden="true"
+                  className="reply-icon"
+                />
                 Reply
               </button>
             </div>

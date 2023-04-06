@@ -1,10 +1,12 @@
-.comment-container {
-  width: 630px;
+.comment-container,
+.comment-form {
+  width: 660px;
   margin: 32px auto 32px auto;
+  background-color: $white;
 }
 
 .reply-container {
-  width: 550px;
+  width: 608px;
   margin-left: auto;
   margin-bottom: 32px;
 }
@@ -13,7 +15,7 @@
 .comment-container,
 .reply-container {
   border-radius: 16px;
-  padding: 16px 32px;
+  padding: 32px;
   background-color: $white;
 
   .comment,
@@ -30,17 +32,19 @@
   .user-info {
     display: flex;
     align-items: center;
+    height: 40px;
     gap: 16px;
+    margin-bottom: 16px;
 
-    button,
-    .button-container {
+    button {
+      cursor: pointer;
       margin-left: auto;
     }
 
     .button-container {
-      .edit-btn {
-        margin-right: 16px;
-      }
+      display: flex;
+      margin-left: auto;
+      gap: 16px;
     }
   }
 }
@@ -70,6 +74,41 @@
     border: none;
     background: none;
     font-size: 2.3rem;
+    color: $lightBlue;
+    font-weight: $bold;
 
+  }
+}
+
+.content-container {
+  .username {
+    color: $darkBlue;
+    font-weight: $semiBold;
+  }
+
+  .reply-btn,
+  .edit-btn,
+  .delete-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: $moderateBlue;
+    font-weight: $bold;
+    font-size: 1.6rem;
+
+    .reply-icon {
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+  }
+
+  .current-user-tag {
+    background-color: $moderateBlue;
+    color: $white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: $semiBold;
   }
 }

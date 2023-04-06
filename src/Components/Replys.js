@@ -1,3 +1,6 @@
+import iconReply from "./images/icon-reply.svg";
+import iconDelete from "./images/icon-delete.svg";
+import iconEdit from "./images/icon-edit.svg";
 import { useEffect, useState } from "react";
 import Form from "./Form";
 
@@ -60,7 +63,7 @@ const Reply = ({
       textarea.textContent === `@${clickedComment.user.username},` ||
       textarea.textContent === `@${clickedReply.replyingTo},`
     ) {
-      if (event.keyCode == 8) event.preventDefault();
+      if (event.keyCode === 8) event.preventDefault();
     }
   };
 
@@ -93,10 +96,12 @@ const Reply = ({
             <div className="user-info">
               <img src={require(`${user.image.png}`)} alt={user.username} />
               <p className="username">{user.username}</p>
-              {currentUser && <p>you</p>}
+              {user.username === currentUser.username && (
+                <p className="current-user-tag">you</p>
+              )}
               <p className="created-at">{createdAt}</p>
               {/* if reply is by current user, display edit/delete buttons */}
-              {currentUser ? (
+              {user.username === currentUser.username ? (
                 <div className="button-container">
                   <button
                     className="edit-btn"
@@ -104,13 +109,24 @@ const Reply = ({
                       setShowEditComment(!showEditComment);
                     }}
                   >
+                    <img
+                      src={iconEdit}
+                      alt="reply icon"
+                      aria-hidden="true"
+                      className="reply-icon"
+                    />
                     Edit
                   </button>
                   <button
                     className="delete-btn"
                     onClick={(event) => deleteComment(reply, event)}
                   >
-                    <span></span>
+                    <img
+                      src={iconDelete}
+                      alt="reply icon"
+                      aria-hidden="true"
+                      className="reply-icon"
+                    />
                     Delete
                   </button>
                 </div>
@@ -119,7 +135,12 @@ const Reply = ({
                   className="reply-btn"
                   onClick={() => setShowReplyForm(!showReplyForm)}
                 >
-                  <span></span>
+                  <img
+                    src={iconReply}
+                    alt="reply icon"
+                    aria-hidden="true"
+                    className="reply-icon"
+                  />
                   Reply
                 </button>
               )}
