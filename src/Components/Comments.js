@@ -12,11 +12,16 @@ const Comments = ({ comment, comments, currentUser, setComments }) => {
   const addComment = (event, clickedComment, userInput, index) => {
     event.preventDefault();
 
+    const date = new Date();
+    const day = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
     //reply object
     const reply = {
       id: parseInt(Date.now() * Math.random()),
       content: userInput,
-      createdAt: new Date().toLocaleString(),
+      createdAt: `${date.toLocaleString("default", {
+        month: "long",
+      })} ${date.getDate()}`,
       score: 0,
       replyingTo: clickedComment.user.username,
       user: {

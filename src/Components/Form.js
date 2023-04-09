@@ -48,13 +48,14 @@ const Form = ({
         onKeyDown={handleBackspace}
       ></textarea>
       <button
+        className="submit-btn"
         onClick={(event) => {
           addComment(event, selectedComment, userInput, index);
           //hide form after commenting on a reply
           showReplyForm && setShowReplyForm(false);
         }}
       >
-        submit
+        Reply
       </button>
     </form>
   );

@@ -154,8 +154,11 @@ const Reply = ({
                   onChange={(event) => setCommentContent(event.target.value)}
                   onKeyDown={(event) => handleBackspace(event, comment, reply)}
                 ></textarea>
-                <button onClick={(event) => editComment(comment, reply, event)}>
-                  update
+                <button
+                  className="update-btn"
+                  onClick={(event) => editComment(comment, reply, event)}
+                >
+                  Update
                 </button>
               </form>
             ) : (
